@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
 
+import UserInput
+
 class App extends Component {
     state = {
         persons: [
