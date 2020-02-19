@@ -13,12 +13,19 @@ class Persons extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
-        return true;
+        if (nextProps.persons !== this.props.persons ||
+            nextProps.changed !== this.props.clicked ||
+            nextProps.changed !== this.props.changed
+        ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate');
-        return { message: 'Snapshot!' }; //object like scrolling coordinates that you want to save and use later.
+        return {message: 'Snapshot!'}; //object like scrolling coordinates that you want to save and use later.
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -28,18 +35,19 @@ class Persons extends Component {
 
     render() {
         console.log('[Persons.js] rendering...');
-        return this.props.persons.map((person, index) => {
-            return (
-                <Person
-                    click={() => this.props.clicked(index)}
-                    name={person.name}
-                    age={person.age}
-                    key={person.id}
-                    changed={(event) => this.props.changed(event, person.id)}
-                />
-            );
-        });
-    }
-};
 
+        return (this.props.persons.map((person, index) => {
+                return (
+                    <Person
+                        click={() => this.props.clicked(index)}
+                        name={person.name}
+                        age={person.age}
+                        key={person.id}
+                        changed={(event) => this.props.changed(event, person.id)}
+                    />
+                );
+            })
+        );
+    };
+};
 export default Persons;
